@@ -20,9 +20,6 @@ for (let i = 0; i < numberOfOperands; i++) {
   while (isNaN(operands[i]) || operands[i]===null || operands[i]===""){    
     operands[i] = prompt(`Please, enter ${numberOfOperands-i} number(s)`);    
   }
-}
-
-for (let i = 0; i < operands.length; i++) {
   operands[i]=Number(operands[i]);
 }
 
