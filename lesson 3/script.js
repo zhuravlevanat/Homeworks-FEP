@@ -5,8 +5,8 @@ let operation,
     result,
     operands = [];   
   
-while (!(operation === 'sum') && !(operation === 'sub') 
-    && !(operation === 'mult') && !(operation === 'div')) {
+while ((operation !== 'sum') && (operation !== 'sub') 
+    && (operation !== 'mult') && (operation !== 'div')) {
   operation = prompt('Please, choose one operation: sum, sub, mult, div');
 }
 
@@ -17,9 +17,13 @@ do {
 while (numberOfOperands < 1 || numberOfOperands > 4); 
 
 for (let i = 0; i < numberOfOperands; i++) {
-  while (isNaN(operands[i]) || !operands[i]){
-  operands[i] = Number(prompt(`Please, enter ${numberOfOperands-i} number(s)`));
+  while (isNaN(operands[i]) || operands[i]===null || operands[i]===""){    
+    operands[i] = prompt(`Please, enter ${numberOfOperands-i} number(s)`);    
   }
+}
+
+for (let i = 0; i < operands.length; i++) {
+  operands[i]=Number(operands[i]);
 }
 
 result = operands[0];
