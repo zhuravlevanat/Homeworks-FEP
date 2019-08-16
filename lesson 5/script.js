@@ -17,22 +17,22 @@ const newString = replaceAll('Hello world', 'l', 'z');
 
 console.log(newString);
 
-// function replaceAll(string, replaceableChar, charToReplace) {
-//   if ((replaceableChar.length !== 1) || (charToReplace.length !== 1)) {
-//     alert('You should enter only one symbol');
-//   } else {
-//     if (string.length !== 0) {
-//       string = string.replace(string[i], charToReplace)
-//     if (string[length] === replaceableChar) {
-//          replaceAll(string, replaceableChar, charToReplace)
-//       //         
-//       //       }
-//   }
-//     }
-//   }
-//   return string;
-// }
+function replaceAllRecursion(string, replaceableChar, charToReplace, index) {
+  let currentIndex = index || 0;
+  if ((replaceableChar.length !== 1) || (charToReplace.length !== 1)) {
+   alert('You should enter only one symbol');
+ } else {
+   let modifiedString = (string[currentIndex] === replaceableChar) ? 
+   string.replace(string[currentIndex], charToReplace) : string;
+   if (currentIndex < modifiedString.length) {
+     modifiedString = replaceAllRecursion(modifiedString, replaceableChar, charToReplace, ++currentIndex);
+   }
+   return modifiedString;
+ }
+ 
+}
 
-// const newString = replaceAll('Hello world', 'li', 'z');
+const newStringWithRecursion = replaceAllRecursion('Hello world', 'l', 'z', 0);
 
-// console.log(newString);
+console.log(newStringWithRecursion);
+
