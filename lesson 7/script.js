@@ -15,22 +15,16 @@ function userInput(text) {
 }
 
 const name = userInput('What is your name');
-const numbers = userInput('Please, enter numbers separated by commas');
+greeting.innerHTML = "Hello, " + name;
 
+const numbers = userInput('Please, enter numbers separated by commas');
 const arr = numbers.split(',');
 
-displayMessage(name, arr);
-
-function displayMessage(name, arr) { 
-  greeting.innerHTML = "Hello, " + name;
-  if (checkNaN(arr)) {
+const someNan = arr.some(value => isNaN(value));
+  if (someNan) {
       displayError();
     } else {
       displayMinAndMax(arr);
-}
-
-function checkNaN(arr) {
-  return arr.some(value => isNaN(value))? true: false;
 }
 
 function displayError() {
@@ -48,7 +42,7 @@ function displayMinAndMax(arr) {
   maxNumber.innerHTML = "Maximum number is " + arr[arr.length-1];
   minNumber.innerHTML = "Minimum number is " + arr[0];
 }
-}
+
 
 
 
