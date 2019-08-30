@@ -14,6 +14,21 @@ function userInput(text) {
   return input;
 }
 
+function displayError() {
+  maxNumber.style.width = "200px";
+  maxNumber.style.height = "20px";
+  maxNumber.style.backgroundColor = "red";
+  maxNumber.innerHTML = 'Please, enter correct numbers';  
+}
+
+function displayMinAndMax(arr) {
+  arr.sort((a, b) => a-b);
+
+  maxNumber.innerHTML = "Maximum number is " + arr[arr.length-1];
+  minNumber.innerHTML = "Minimum number is " + arr[0];
+}
+
+
 const name = userInput('What is your name');
 greeting.innerHTML = "Hello, " + name;
 
@@ -27,21 +42,6 @@ const someNan = arr.some(value => isNaN(value));
       displayMinAndMax(arr);
 }
 
-function displayError() {
-  maxNumber.style.width = "200px";
-  maxNumber.style.height = "20px";
-  maxNumber.style.backgroundColor = "red";
-  maxNumber.innerHTML = 'Please, enter correct numbers';  
-}
-
-function displayMinAndMax(arr) {
-  arr.sort(function(a, b) {
-    return a-b;
-  });
-
-  maxNumber.innerHTML = "Maximum number is " + arr[arr.length-1];
-  minNumber.innerHTML = "Minimum number is " + arr[0];
-}
 
 
 
