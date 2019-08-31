@@ -19,7 +19,7 @@ function addListItems(numberOfItems) {
     const li = document.createElement('li');
     li.textContent = i+1;
     list.append(li);
-  
+  }  
 }
 
 buttonAddListItems.addEventListener('click', function(){
@@ -35,6 +35,4 @@ buttonAddListItems.addEventListener('click', function(){
     alert('Enter number greater than 0');
     inputForNumber.value = "";
   }
-
 });
-
