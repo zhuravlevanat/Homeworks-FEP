@@ -31,9 +31,9 @@ buttonAddListItems.addEventListener('click', function(){
 
   if (validInputNumber(numberOfListItems)) {
     addListItems(numberOfListItems);
-  }else {
+  } else {
     alert('Enter number greater than 0');
+    inputForNumber.value = "";
   }
-
 });
 
