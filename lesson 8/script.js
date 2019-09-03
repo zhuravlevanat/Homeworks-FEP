@@ -36,3 +36,4 @@ buttonAddListItems.addEventListener('click', function(){
     inputForNumber.value = "";
   }
 });
+
