@@ -2,7 +2,7 @@
 
 const newTask = document.getElementById('new-task');
 const tasksList = document.getElementById('tasks-list');
-const btnAddTask = document.getElementById('btn-add-task');
+const formAddTask = document.getElementById('form-add-task');
 
 function createTask(taskName) {
   const task = document.createElement('li');
@@ -32,21 +32,16 @@ function clearInput() {
   newTask.value = '';
 }
 
-function onAddTaskBtnClick(event) {
+function onAddTaskFormSubmit(event) {
   event.preventDefault();
   const newTaskName = newTask.value && newTask.value.trim();
-  addNewTask(newTaskName);
-  clearInput();
+  if (newTaskName !== '') {
+    addNewTask(newTaskName);
+    clearInput();
+  }  
  }
 
-function onAddTaskInputSubmit(event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    onAddTaskBtnClick();
-  }
- }
-
- function onTasksListClick(event) {
+function onTasksListClick(event) {
   if (event.target.classList.contains('delete-icon')) {
     removeTask(event.target.parentElement);
   } else if (event.target.classList.contains('task-list-item')) {
@@ -54,9 +49,7 @@ function onAddTaskInputSubmit(event) {
   } else return;
  }
 
-btnAddTask.addEventListener('click', onAddTaskBtnClick);
-
-newTask.addEventListener('submit', onAddTaskInputSubmit);
+formAddTask.addEventListener('submit', onAddTaskFormSubmit);
 
 tasksList.addEventListener('click', onTasksListClick);
 
