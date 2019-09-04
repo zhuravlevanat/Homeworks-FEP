@@ -32,30 +32,32 @@ function clearInput() {
   newTask.value = '';
 }
 
-function onAddTaskBtnClick() {
+function onAddTaskBtnClick(event) {
+  event.preventDefault();
   const newTaskName = newTask.value && newTask.value.trim();
   addNewTask(newTaskName);
   clearInput();
  }
 
-btnAddTask.addEventListener('click', event => {
-  event.preventDefault();
-  onAddTaskBtnClick();
-});
-
-newTask.addEventListener('submit', event => {
+function onAddTaskInputSubmit(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
     onAddTaskBtnClick();
   }
-});
+ }
 
-tasksList.addEventListener('click', event => {
+ function onTasksListClick(event) {
   if (event.target.classList.contains('delete-icon')) {
     removeTask(event.target.parentElement);
   } else if (event.target.classList.contains('task-list-item')) {
     markTask(event.target);
   } else return;
-});
+ }
+
+btnAddTask.addEventListener('click', onAddTaskBtnClick);
+
+newTask.addEventListener('submit', onAddTaskInputSubmit);
+
+tasksList.addEventListener('click', onTasksListClick);
 
 
