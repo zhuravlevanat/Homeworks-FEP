@@ -1,0 +1,59 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+ display: flex; 
+ width: 60%;
+ flex-direction: column; 
+}
+
+.main-header {
+  padding: 5px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #4c9267;
+}
+
+.tasks-list {
+  padding-left: 30px;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.task-list-item {
+  width: 50%;
+  padding: 5px;
+  padding-left: 10px;
+  user-select: none;
+}
+
+.delete-icon {
+  display: block;
+  float: right;
+  font-size: 0.8em;
+  padding-top: 5px;
+  padding-right: 5px;
+  color: #3c4440;
+}
+
+.task-done {
+  background-color: #4c9267;
+}
+
+.input-group {
+  padding-left: 5px;
+}
+
+.new-task {
+  width: 50%;
+  padding: 10px 10px 7px;
+}
+
+.btn-add-task {
+  padding: 5px 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color:  #4c9267;
+}
+
