@@ -1,24 +1,20 @@
 'use strict';
 
-function createCalculator(initialNumber = 0) {
+function createCalculator(initialValue = 0) {
 
   return {
-    addNumbers: number => initialNumber += number,
-    multNumbers: number => initialNumber *= number,
-    divNumbers: number => initialNumber /= number,
-    subNumbers: number => initialNumber -= number, 
-    setNumber: number => initialNumber = number
+    add: value => initialValue += value,
+    mult: value => initialValue *= value,
+    div: value => initialValue /= value,
+    sub: value => initialValue -= value, 
+    set: value => initialValue = value
   }
 }
 
-const calcucalor = createCalculator(10); 
-
-console.log(calcucalor.addNumbers(23));
-console.log(calcucalor.multNumbers(2));
-console.log(calcucalor.divNumbers(2));
-console.log(calcucalor.subNumbers(20));
-console.log(calcucalor.setNumber(200));
-console.log(calcucalor.addNumbers(20));
-console.log(calcucalor.subNumbers(20));
-console.log(calcucalor.multNumbers(2));
-console.log(calcucalor.divNumbers(2));
+const calculator = createCalculator(10); 
+console.log(calculator.add(45)); // возвращает 55 
+console.log(calculator.sub(45)); // возвращает 10 
+console.log(calculator.div(5)); // возвращает 2 
+console.log(calculator.mult(5)); // возвращает 10 
+console.log(calculator.set(100)); // устанавливает базовое значение в 100 
+console.log(calculator.mult(5)); // возвращает 500
