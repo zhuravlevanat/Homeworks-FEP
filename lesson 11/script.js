@@ -2,13 +2,13 @@
 
 function Student(name, arrMarks) {
   this.name = name;
-  this.arrMarks = arrMarks;
-
-  this.getAverageMark = function(){    
-    const totalMarks = this.arrMarks.reduce((total, value) => total + value);
-    return +(totalMarks/this.arrMarks.length).toFixed(1);
- }     
+  this.arrMarks = arrMarks;  
 }
+
+Student.prototype.getAverageMark = function(){    
+  const totalMarks = this.arrMarks.reduce((total, value) => total + value);
+  return +(totalMarks/this.arrMarks.length).toFixed(1);
+}     
 
 function getAverageGroupMark(arrStudents) {
   const totalGroupMark = arrStudents.reduce(
