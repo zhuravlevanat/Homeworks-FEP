@@ -1,0 +1,15 @@
+.photo-wrapper {
+  width: 50%;
+}
+
+.photo-list {
+  list-style: none;
+}
+
+#container {
+  display: none;
+} 
+
+.hidden {
+  display: none;
+}

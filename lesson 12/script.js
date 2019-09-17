@@ -35,15 +35,16 @@ Hamburger.TOPPING_MAYO = {
   calories: 5
 };
 
-Hamburger.prototype.getToppings = function () {
-  return this.topping;
+Hamburger.prototype.getSize = function () {
+  return this.size;
 }
 
 Hamburger.prototype.getStuffing = function () {
   return this.stuffing;
 }
-Hamburger.prototype.getSize = function () {
-  return this.size;
+
+Hamburger.prototype.getToppings = function () {
+  return this.topping;
 }
 
 Hamburger.prototype.addTopping = function(topping) {
