@@ -17,64 +17,60 @@
 class Gallery {
   constructor(elem) {
     this.elem = elem;
-  }
-  show(photos) {
-    let offset =0;
-    [].forEach.call(photos, function(elem) { 
-      setTimeout(function() {
-        galleryPlace.append(elem);                       
-      }, 1000+offset);
-      offset+=1000;
-      setTimeout(function() {
-        elem.classList.add('hidden');
-               
-        }, 1000+offset);
-        offset+=1000;
-    });
+    this.index = 0;
   }
 
-  createGallery() {
-    
-    const galleryPlace = document.createElement('div');
-    galleryPlace.classList='gallery';
-    this.elem.before(galleryPlace);
-    const photoItems = this.elem.children;
-    this.show(photoItems);
-
+  createGallery() {    
+    const gallery = document.createElement('div');
+    gallery.classList='gallery';
+    gallery.innerHTML = `<button class="gallery-button gallery-left-button">&lArr;</button>
+                         <div class="gallery-item"></div>
+                         <button class="gallery-button gallery-right-button">&rArr;</button>`;
+    document.querySelector('body').prepend(gallery);
   }
-}
-  // showPhotos() {
-  //   let offset =0;
-  //   const list = this.createGallery().children;
-  //   [].forEach.call(list, function(elem) {     
-               
-  //       setTimeout(function() {
-  //         elem.classList.remove('hidden');
-         
-  //       }, 1000+offset);
-  //       offset+=1000;
-  //       setTimeout(function() {
-  //         elem.classList.add('hidden');
-         
-  //       }, 1000+offset);
-  //       offset+=1000;
-      
-       
-  //     // HEAD, текст, BODY
-  //   });
-    // for (let i = 0; i < list.length; i++) {
-    //   console.log(list[i]);
-    //   list[i].classList.remove('hidden');
-    //   setTimeout(function() {
-    //     list[i].classList.add('hidden');
-    //   }, 3000);
-      
-      
-       
-    // }
-    
+
+  getGalleryItems() {
+    return this.elem.children;
+  }
+
+  setPhotoInGallery(image) {
+    document.querySelector('.gallery-item').innerHTML = image.innerHTML;    
+  }
+
+  showGalleryItem () {
+    const galleryItems = this.getGalleryItems();
+    this.setPhotoInGallery(galleryItems[this.index]);
+  }
+
+  next() {
+    const arr = this.getGalleryItems();
+    this.index++;
+    if(this.index == arr.length) this.index = 0;
+    this.setPhotoInGallery(arr[this.index]);
+  }
+
+  prev() {
+    const arr = this.getGalleryItems();
+    this.index--;
+    if(this.index == arr.length) this.index = 0;
+    this.setPhotoInGallery(arr[this.index]);
+  }
+  init () { 
+    this.showGalleryItem ();
+    setInterval(this.next.bind(this), 3000); 
+  }
   
 
+    // listeners () {
+
+    // document.querySelector('.gallery-left-button').addEventListener('click', this.next);
+    // document.querySelector('.gallery-left-button').addEventListener('click', this.prev);
+    // }
+}  
 
 const myGallery = new Gallery(document.getElementById('container'));
 myGallery.createGallery();
+myGallery. showGalleryItem ();
+//myGallery.next();
+//myGallery.listeners();
+//myGallery.init();
