@@ -23,9 +23,10 @@ class Gallery {
   createGallery() {    
     const gallery = document.createElement('div');
     gallery.classList='gallery';
-    gallery.innerHTML = `<button class="gallery-button gallery-left-button">&lArr;</button>
+    gallery.innerHTML = `<button class="gallery-button gallery-left-button">&lt;</button>
+                         <button class="gallery-button gallery-close-button">&#10006;</button>
                          <div class="gallery-item"></div>
-                         <button class="gallery-button gallery-right-button">&rArr;</button>`;
+                         <button class="gallery-button gallery-right-button">&gt;</button>`;
     document.querySelector('body').prepend(gallery);
   }
 
@@ -61,16 +62,16 @@ class Gallery {
   }
   
 
-    // listeners () {
-
-    // document.querySelector('.gallery-left-button').addEventListener('click', this.next);
-    // document.querySelector('.gallery-left-button').addEventListener('click', this.prev);
-    // }
+    listeners () {
+    const fn = this.next.bind(this);
+    document.querySelector('.gallery-left-button').addEventListener('click', fn);
+    document.querySelector('.gallery-left-button').addEventListener('click', this.prev.bind(this));
+    }
 }  
 
 const myGallery = new Gallery(document.getElementById('container'));
 myGallery.createGallery();
 myGallery. showGalleryItem ();
 //myGallery.next();
-//myGallery.listeners();
+myGallery.listeners();
 //myGallery.init();

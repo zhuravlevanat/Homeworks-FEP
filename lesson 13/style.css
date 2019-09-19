@@ -1,36 +1,61 @@
 #container {
   display: none;
 }
+
 .gallery {
   position:relative;
   display: flex;
   flex-direction: column;
 	padding: 5px;
 }
+
 .gallery-button {
 	position: absolute;
-	top: 150px;
-	width: 25px;
-	height: 50px;
-	font: 12pt arial,tahoma,sans-serif;
-	text-align: center;
+	top: 250px;
+	font-size: 20px;  
+  padding: 5px 10px;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: rgb(41, 39, 39);
+  background-color:  #dad6bf;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 3px #999;
 }
-.gallery-left-button {
-	left:5px;
+
+.gallery-left-button { 
+	left: 225px;
 }
+
+.gallery-button:hover {
+  background-color: #ceb213;
+}
+
 .gallery-right-button {
-	right:5px;
+	right:225px;
 }
-.gallery-item {
-  margin: 0 auto;
+
+.gallery-close-button {
+  font-size: 18px;
+  right:440px;
+  top: 55px;
+}
+
+.gallery-item {  
+  margin: 0px auto;
+  padding-top: 50px;
   background-size: contain;
   width: 800px; 
   height: 800px;
   overflow: hidden;
+  
 }
+
 .gallery-item img {
-  height: 100%;
-  width: auto;
-  max-width: 100%;      
+  max-width:100%;
+  height:auto; 
+  box-shadow: 0 3px #999;
 }
 
