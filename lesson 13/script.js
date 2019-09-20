@@ -10,40 +10,36 @@ class Gallery {
   createGallery() {    
     const gallery = document.createElement('div');
     gallery.classList='gallery';
-    gallery.innerHTML = `
-      <button class="gallery-button gallery-left-button">&lt;</button>
-      <button class="gallery-button gallery-stop-button">&#9724;</button>
-      <div class="gallery-item"></div>
-      <button class="gallery-button gallery-right-button">&gt;</button>
-      `;
+    gallery.innerHTML = document.getElementById('galleryTemplate').innerHTML;
     document.querySelector('body').prepend(gallery);
+    return gallery;
   }
 
   getGalleryItems() {
     return this.elem.children;
   }
 
-  setPhotoInGallery(image) {
+  setItemInGallery(image) {
     document.querySelector('.gallery-item').innerHTML = image.innerHTML;    
   }
 
   showGalleryItems () {
     const galleryItems = this.getGalleryItems();
-    this.setPhotoInGallery(galleryItems[this.index]);
+    this.setItemInGallery(galleryItems[this.index]);
   }
 
   next() {
     const arr = this.getGalleryItems();
     this.index++;
     if(this.index == arr.length) this.index = 0;
-    this.setPhotoInGallery(arr[this.index]);
+    this.setItemInGallery(arr[this.index]);
   }
 
   prev() {
     const arr = this.getGalleryItems();
     this.index--;
     if(this.index < 0) this.index = arr.length-1;
-    this.setPhotoInGallery(arr[this.index]);
+    this.setItemInGallery(arr[this.index]);
   }
   initGallery () {
     this.createGallery(); 
@@ -59,12 +55,27 @@ class Gallery {
  }  
 
   listeners () {
-    this.next = this.next.bind(this);
-    this.prev = this.prev.bind(this);
-    this.pauseGallery = this.pauseGallery.bind(this);
-    document.querySelector('.gallery-left-button').addEventListener('click', this.next);
-    document.querySelector('.gallery-right-button').addEventListener('click', this.prev);
-    document.querySelector('.gallery-stop-button').addEventListener('click', this.pauseGallery);
+    document.querySelector('.gallery').addEventListener('click', function(event) {
+      const target = event.target;
+      this.prev = this.prev.bind(this);
+      switch (target.classList.contains) {
+        case 'gallery-left-button':
+          this.prev;
+          break;
+        case 'gallery-right-button':
+          this.next.bind(this);
+          break;
+        case 'gallery-stop-button':
+          this.pauseGallery.bind(this);
+          break;      
+      }  
+    });
+    // this.next = this.next.bind(this);
+    // this.prev = this.prev.bind(this);
+    // this.pauseGallery = this.pauseGallery.bind(this);
+    // document.querySelector('.gallery-left-button').addEventListener('click', this.next);
+    // document.querySelector('.gallery-right-button').addEventListener('click', this.prev);
+    // document.querySelector('.gallery-stop-button').addEventListener('click', this.pauseGallery);
   }
 }  
 
