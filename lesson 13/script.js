@@ -1,10 +1,11 @@
 'use strict';  
-let intervalId; 
 
 class Gallery {
   constructor(elem) {
     this.elem = elem;
-    this.index = 0;       
+    this.index = 0;
+    this.interval;
+    this.createGallery();       
   }
 
   createGallery() {    
@@ -12,8 +13,7 @@ class Gallery {
     gallery.classList='gallery';
     gallery.innerHTML = document.getElementById('galleryTemplate').innerHTML;
     document.querySelector('body').prepend(gallery);
-    return gallery;
-  }
+  } 
 
   getGalleryItems() {
     return this.elem.children;
@@ -23,11 +23,17 @@ class Gallery {
     document.querySelector('.gallery-item').innerHTML = image.innerHTML;    
   }
 
-  showGalleryItems (item=this.index) {
+  showGalleryItems (item) {
     const galleryItems = this.getGalleryItems();
     this.setItemInGallery(galleryItems[item]);
   }
 
+  initGallery () { 
+    this.showGalleryItems(this.index);
+    this.interval = setInterval(() => this.next(), 3000);
+    this.listeners();    
+  }
+  
   next() {
     const arr = this.getGalleryItems();
     this.index++;
@@ -41,43 +47,32 @@ class Gallery {
     if(this.index < 0) this.index = arr.length-1;
     this.setItemInGallery(arr[this.index]);
   }
-  initGallery () {
-    this.createGallery(); 
-    this.showGalleryItems();
-    intervalId = setInterval(this.next.bind(this), 3000);
-    this.listeners();    
+
+  show(index) {
+    this.showGalleryItems(index);
   }
 
   pauseGallery () {
-    setInterval(function(){
-      clearInterval(intervalId);
-    });
+    clearInterval(this.interval);
  }  
 
   listeners () {
-    // this.prev = this.prev.bind(this);
-    // document.querySelector('.gallery').addEventListener('click', function(event) {
-    //   const target = event.target;      
-    //   if (target.classList.contains('gallery-left-button')) {
-    //     this.prev;
-    //   }
-             
-      
-    // });
-    this.next = this.next.bind(this);
-    this.prev = this.prev.bind(this);
-    this.pauseGallery = this.pauseGallery.bind(this);
-    document.querySelector('.gallery-left-button').addEventListener('click', this.next);
-    document.querySelector('.gallery-right-button').addEventListener('click', this.prev);
-    document.querySelector('.gallery-stop-button').addEventListener('click', this.pauseGallery);
+    document.querySelector('.gallery').addEventListener('click', (event) => {
+      const target = event.target;      
+      if (target.classList.contains('gallery-left-button')) {
+        this.prev();
+      } else if (target.classList.contains('gallery-right-button')) {
+        this.next();
+      } else if (target.classList.contains('gallery-stop-button')) {
+        this.pauseGallery();
+      }
+    });
   }
 }  
 
 const myGallery = new Gallery(document.getElementById('container'));
 
 myGallery.initGallery();
-myGallery.showGalleryItems(3);
-
-// myGallery.show(2);
+// myGallery.show(3);
 // myGallery.next();
 // myGallery.prev();
