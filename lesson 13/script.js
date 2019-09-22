@@ -23,12 +23,12 @@ class Gallery {
     document.querySelector('.gallery-item').innerHTML = image.innerHTML;    
   }
 
-  showGalleryItems (item) {
+  showGalleryItems(index) {
     const galleryItems = this.getGalleryItems();
-    this.setItemInGallery(galleryItems[item]);
+    this.setItemInGallery(galleryItems[index]);
   }
 
-  initGallery () { 
+  initGallery() { 
     this.showGalleryItems(this.index);
     this.interval = setInterval(() => this.next(), 3000);
     this.listeners();    
@@ -37,7 +37,7 @@ class Gallery {
   next() {
     const arr = this.getGalleryItems();
     this.index++;
-    if(this.index == arr.length) this.index = 0;
+    if(this.index === arr.length) this.index = 0;
     this.setItemInGallery(arr[this.index]);
   }
 
@@ -52,11 +52,11 @@ class Gallery {
     this.showGalleryItems(index);
   }
 
-  pauseGallery () {
+  pauseGallery() {
     clearInterval(this.interval);
  }  
 
-  listeners () {
+  listeners() {
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;      
       if (target.classList.contains('gallery-left-button')) {
@@ -73,6 +73,6 @@ class Gallery {
 const myGallery = new Gallery(document.getElementById('container'));
 
 myGallery.initGallery();
-// myGallery.show(3);
-// myGallery.next();
-// myGallery.prev();
+//myGallery.show(3);
+//myGallery.next();
+//myGallery.prev();
