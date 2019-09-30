@@ -12,7 +12,7 @@ class Gallery {
     const gallery = document.createElement('div');
     gallery.classList='gallery';
     gallery.innerHTML = document.getElementById('galleryTemplate').innerHTML;
-    document.querySelector('body').prepend(gallery);
+    this.elem.before(gallery);
   } 
 
   getGalleryItems() {
@@ -23,13 +23,13 @@ class Gallery {
     document.querySelector('.gallery-item').innerHTML = image.innerHTML;    
   }
 
-  showGalleryItems(index) {
-    const galleryItems = this.getGalleryItems();
-    this.setItemInGallery(galleryItems[index]);
+  showGalleryItem(elem) {     
+    this.setItemInGallery(elem);
   }
 
-  initGallery() { 
-    this.showGalleryItems(this.index);
+  initGallery() {
+    const arr = this.getGalleryItems(); 
+    this.showGalleryItem(arr[this.index]);
     this.interval = setInterval(() => this.next(), 3000);
     this.listeners();    
   }
@@ -38,18 +38,20 @@ class Gallery {
     const arr = this.getGalleryItems();
     this.index++;
     if(this.index === arr.length) this.index = 0;
-    this.setItemInGallery(arr[this.index]);
+    this.showGalleryItem(arr[this.index]);
   }
 
   prev() {
     const arr = this.getGalleryItems();
     this.index--;
     if(this.index < 0) this.index = arr.length-1;
-    this.setItemInGallery(arr[this.index]);
+    this.showGalleryItem(arr[this.index]);
   }
 
   show(index) {
-    this.showGalleryItems(index);
+    this.index = index;
+    const arr = this.getGalleryItems();
+    this.showGalleryItem(arr[this.index]);
   }
 
   pauseGallery() {
