@@ -58,13 +58,13 @@ class Tabset {
     
     Array.prototype.forEach.call(collectionOfHeadings, (el) => {
       Tabset.unmarkTabHeading(el);
-      if (el.dataset.headingId == this.index) {
+      if (el.dataset.headingId === this.index) {
         Tabset.markTabHeading(el);
       }
     });
     Array.prototype.forEach.call(collectionOfBodies, (el) => {
       Tabset.hideTabBody(el);
-      if (el.dataset.bodyId == index) {
+      if (el.dataset.bodyId === this.index) {
         Tabset.displayTabBody(el);
       }
     });    
@@ -73,7 +73,6 @@ class Tabset {
   next() {
     const collectionLength = this.getCollectionLength();
     this.index++;
-    console.log(this.index);
     if (this.index === collectionLength+1) this.index = 1;
     this.show(this.index);
   }
@@ -97,7 +96,7 @@ class Tabset {
 
 const tabSet = new Tabset(document.getElementById('tabset'));
 
-// tabSet.show(2);
+//tabSet.show('2');
 //tabSet.next();
 // tabSet.prev();
 
