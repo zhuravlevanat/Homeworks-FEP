@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="./script.js" async></script> 
+  <style>
+    .cursor-pointer{
+      cursor: pointer;
+    }
+  </style>
+ </head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>Сontact log</h1>   
+  </div>  
+  <div class="container">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr class="text-center">
+                <td>John</td>
+                <td>Doe</td>
+                <td>067-894-14-23</td>
+                <td class="delete-btn cursor-pointer">✘</td>
+              </tr>              
+            </tbody>
+          </table>      
+    </div> 
+    <div class="row mt-5">
+      <form id="form-add-contact" class="form-inline" action="/action_page.php">
+        <input type="text" id="first-name" placeholder="First Name" class="form-control pr-5 pl-5 mb-2">
+        <input type="text" id="last-name" placeholder="Last Name" class="form-control pr-4 pl-5 mb-2">
+        <input type="tel" id="tel" pattern="^\d{3}-\d{3}-\d{2}-\d{2}$" x-autocompletetype="tel" 
+              placeholder="Phone format:xxx-xxx-xx-xx" class="form-control mb-2 pr-5 pl-5">           
+        <button type="submit" class="btn btn-primary pl-5 pr-5 mr-5 mb-2">Submit</button>
+      </form>
+    </div>
+  </div>
+  <script type="text/template" id="rowTemplate">
+    <tr class="text-center">
+      <td>{{firstName}}</td>
+      <td>{{lastName}}</td>
+      <td>{{phone}}</td>
+      <td class="delete-btn cursor-pointer">✘</td>
+    </tr>   
+  </script> 
+</body>
+</html>
