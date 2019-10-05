@@ -15,7 +15,6 @@ class ContactLog {
   phoneInput = document.getElementById(ContactLog.INPUT_PHONE_ID);
   tableBody = document.getElementById(ContactLog.TABLE_BODY_ID);
 
-
   constructor(){
     this.makeInputOnFocus(this.firstNameInput);
     this.bindEventListeners();    
@@ -32,7 +31,7 @@ class ContactLog {
 
   onTableContactsClick(event) {
     if (event.target.classList.contains(ContactLog.BTN_DELETE_CLASS))
-    this.deleteContact(event.target.parentElement);
+      this.deleteContact(event.target.parentElement);
   }
 
   createContact(firstName, lastName, phone) {    
