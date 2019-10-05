@@ -35,7 +35,7 @@ class ContactLog {
     this.deleteContact(event.target.parentElement);
   }
 
-  createRow(firstName, lastName, phone) {    
+  createContact(firstName, lastName, phone) {    
     let rowTemplate = document.getElementById(ContactLog.ROW_TEMPLATE_ID).innerHTML;
     rowTemplate = rowTemplate.replace('{{firstName}}', firstName);
     rowTemplate = rowTemplate.replace('{{lastName}}', lastName);
@@ -57,7 +57,7 @@ class ContactLog {
     const phone = this.phoneInput.value.trim();
 
     if ((firstName !== '') && (lastName !== '') && (phone !== '')) {
-      this.createRow(firstName, lastName, phone);
+      this.createContact(firstName, lastName, phone);
       this.clearForm();
       this.makeInputOnFocus(this.firstNameInput);
     }   
