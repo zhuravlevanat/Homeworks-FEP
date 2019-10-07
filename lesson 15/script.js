@@ -7,20 +7,21 @@ class ContactLog {
   static INPUT_PHONE_ID = 'tel';
   static ROW_TEMPLATE_ID = 'rowTemplate';
   static TABLE_BODY_ID = 'table-body';
-  static BTN_DELETE_CLASS = 'delete-btn'
-
+  static BTN_DELETE_CLASS = 'delete-btn';
+  
   formAddContact = document.getElementById(ContactLog.FORM_ADD_CONTACT_ID);
   firstNameInput = document.getElementById(ContactLog.INPUT_FIRST_NAME_ID);
   lastNameInput = document.getElementById(ContactLog.INPUT_LAST_NAME_ID);
   phoneInput = document.getElementById(ContactLog.INPUT_PHONE_ID);
   tableBody = document.getElementById(ContactLog.TABLE_BODY_ID);
+  rowTemplate = document.getElementById(ContactLog.ROW_TEMPLATE_ID).innerHTML;
 
   constructor(){
-    this.makeInputOnFocus(this.firstNameInput);
+    this.setFocus(this.firstNameInput);
     this.bindEventListeners();    
   }
 
-  makeInputOnFocus(input) {
+  setFocus(input) {
     input.focus();
   }
 
@@ -35,15 +36,20 @@ class ContactLog {
   }
 
   createContact(firstName, lastName, phone) {    
-    let rowTemplate = document.getElementById(ContactLog.ROW_TEMPLATE_ID).innerHTML;
-    rowTemplate = rowTemplate.replace('{{firstName}}', firstName);
-    rowTemplate = rowTemplate.replace('{{lastName}}', lastName);
-    rowTemplate = rowTemplate.replace('{{phone}}', phone);
+    let rowTemplate = this.rowTemplate.replace('{{firstName}}', firstName)
+                                            .replace('{{lastName}}', lastName)
+                                            .replace('{{phone}}', phone);
     this.tableBody.innerHTML += rowTemplate;
   }
 
   deleteContact(elem) {
     elem.remove();
+  }
+
+  isFormValid() {
+    return (this.firstNameInput.value) 
+            && (this.lastNameInput.value) 
+            && (this.phoneInput.value);
   }
 
   clearForm() {
@@ -55,11 +61,12 @@ class ContactLog {
     const lastName = this.lastNameInput.value.trim();
     const phone = this.phoneInput.value.trim();
 
-    if ((firstName !== '') && (lastName !== '') && (phone !== '')) {
+    if (this.isFormValid()) {
       this.createContact(firstName, lastName, phone);
       this.clearForm();
-      this.makeInputOnFocus(this.firstNameInput);
-    }   
+      this.setFocus(this.firstNameInput);
+    }
+
    }
   
   bindEventListeners() {
