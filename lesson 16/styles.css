@@ -1,0 +1,43 @@
+.container {
+  position: relative;  
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.photo-item {
+  border: 4px solid black;
+}
+
+.full-photo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 3;
+}
+
+.background-layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; 
+  background-color: black;
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  margin-left: -20px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
