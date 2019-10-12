@@ -1,0 +1,47 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+h2 {
+  text-align: center;
+}
+
+.users-list-container ul {
+  list-style: none;
+  /* background-color: #c9c1c1; */
+}
+
+.users-list-item {
+  padding: 10px 10px;
+  border: 1px solid #969090;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-details {
+  font-weight: bold;  
+  
+}
+
+.full-name {
+  float: left;
+  width: 40%;
+  margin-right: 50px;
+}
+
+.user-name {
+  
+}
+
+.address {
+ float: left; 
+ width: 40%;
+ margin-right: 50px;
+}
+
+.company {
+  clear: both;
+  font-style: italic;
+}
+
