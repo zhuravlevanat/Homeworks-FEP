@@ -1,0 +1,45 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+h2 {
+  text-align: center;
+}
+
+.users-list-container ul {
+  list-style: none;
+}
+
+.users-list-item {
+  position: relative;
+  padding: 10px 10px;
+  border: 1px solid #969090;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-details {
+  font-weight: bold;  
+  
+}
+
+.full-name {
+ margin-right: 50px;
+}
+
+.company {
+  font-style: italic;
+}
+
+input {
+  width: 45%;
+  margin-right: 20px;
+}
+
+.delete-btn {
+  position: absolute;
+  margin-left: 300px;
+  cursor: pointer;
+}
+
