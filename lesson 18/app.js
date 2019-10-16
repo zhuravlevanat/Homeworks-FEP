@@ -9,22 +9,24 @@ const BTN_EDIT_USER = 'edit-btn';
 const usersListContainer = document.querySelector('.users-list-container');
 const usersListItemTemplate = 
       document.getElementById('usersListItemTemplate').innerHTML;
-const userDetailsTemplate = 
-      document.getElementById('userDetailsTemplate').innerHTML;
-const userDetailsContainer = document.querySelector('.user-details-container');
-const addUserForm = document.getElementById('addUserForm');
+const userDetailsContainer = document.querySelector('.user-data-container');
+const userDataForm = document.getElementById('userDataForm');
+const addUserButton = document.getElementById('addUserButton');
+const saveUserDetailsButton = document.getElementById('saveBtn');
+const deleteBtn = document.querySelector('.delete-btn');
+const editBtn = document.querySelector('.edit-btn');
 const fullNameInput = document.getElementById('fullNameInput');
 const userNameInput = document.getElementById('userNameInput');
 const phoneInput = document.getElementById('phoneInput');
 const emailInput = document.getElementById('emailInput');
+const inputs = document.getElementsByTagName('input');
 let isEdited = false;
-let idOfEditedUser;
+let currentId;
 
 init();
 
 function init() {
   getUsersList()
-  .then((data) => getUserDetails(data[0].id))
 }
 
 function requestJson(url, options = {}) {
@@ -36,7 +38,7 @@ function requestJson(url, options = {}) {
   .then(response => response.json())  
 }
 
-function setRequestOptions (method, headers, body) {
+function setRequestOptions(method, headers, body) {
   return {
     method: method,
     headers: {
@@ -48,15 +50,16 @@ function setRequestOptions (method, headers, body) {
 
 function getUsersList() {
   return requestJson(USERS_URL)
-  .then(addListOfUsers)
+  .then(renderUsersList)
 }
 
-function getUserDetails(id) {
+function getUserData(id) {
   return requestJson(USERS_URL+'/'+id)
-  .then(addUsersListDetails)
+  .then(renderUserDeta)
 }
 
-function addListOfUsers(list) {
+function renderUsersList(list) {
+  usersListContainer.innerHTML = '';
   const listItems = document.createElement('ul');  
 
   const users = list.map((elem) => {
@@ -69,19 +72,32 @@ function addListOfUsers(list) {
   return list;
 }
 
-function addUsersListDetails(elem) {
-  const userDetails = 
-        userDetailsTemplate.replace('{{name}}', elem.name)
-                           .replace('{{username}}', elem.username)
-                           .replace('{{phone}}', elem.phone)
-                           .replace('{{email}}', elem.email);
- 
-  userDetailsContainer.innerHTML= userDetails;
-  return elem;
+function renderUserDeta(user) {
+  setFormValues(user.name, user.username, user.phone, user.email);
+  currentId = user.id;
+  viewMode(); 
+  return user;
+}
+
+function creationMode() {
+  activateForm(inputs);
+  saveUserDetailsButton.classList.remove('hidden');
+  deleteBtn.classList.add('hidden');
+  editBtn.classList.add('hidden');
+  setFocus(fullNameInput);
+}
+
+function viewMode() {
+  disableForm(inputs);
+  saveUserDetailsButton.classList.add('hidden');
+  deleteBtn.classList.remove('hidden');
+  editBtn.classList.remove('hidden');
 }
 
 usersListContainer.addEventListener('click', onUsersListClick);
-addUserForm.addEventListener('submit', (event) => {
+addUserButton.addEventListener('click', onUserButtonClick);
+userDetailsContainer.addEventListener('click', onUserDetailsClick)
+userDataForm.addEventListener('submit', (event) => {
   if (!isEdited) {
     onAddUserFormSubmit(event);
   } else {
@@ -90,19 +106,25 @@ addUserForm.addEventListener('submit', (event) => {
 });
 
 function onUsersListClick(event) {
+  if (event.target.classList.contains(USERS_LIST_ITEM_CLASS))
+      getUserData(event.target.dataset.id);      
+}
+
+function onUserButtonClick() {
+  resetForm();
+  creationMode();
+}
+
+function onUserDetailsClick(event) {
   switch (true){
-    case event.target.classList.contains(USERS_LIST_ITEM_CLASS):
-      getUserDetails(event.target.dataset.id);
-      break
     case event.target.classList.contains(BTN_DELETE_USER):
-      deleteUser(event.target.nextElementSibling.dataset.id);
-      break
-    case event.target.classList.contains(BTN_EDIT_USER):
-      idOfEditedUser = event.target.previousElementSibling.dataset.id;
-      editForm(idOfEditedUser);
-      isEdited = true;
-      break
-  }  
+    deleteUser(currentId);
+    break
+    case event.target.classList.contains(BTN_EDIT_USER): 
+    isEdited = true;
+    creationMode(); 
+    break
+  }
 }
 
 function onAddUserFormSubmit(event) {
@@ -112,7 +134,7 @@ function onAddUserFormSubmit(event) {
 
 function onEditUserFormSubmit(event) {
   event.preventDefault();
-  editUser();
+  editUser(currentId);
 }
 
 function addUser() {
@@ -120,15 +142,14 @@ function addUser() {
   const options = setRequestOptions('POST', `Content-Type: application/json`, user);
   requestJson(USERS_URL, options);
   resetForm();
-  getUsersList();  
+  init();  
 }
 
-function editUser() {
-  console.log(idOfEditedUser);
+function editUser(id) {
   const user = getFormValues();
   const options = setRequestOptions('PUT', `Content-Type: application/json`, user);
 
-  requestJson(USERS_URL+'/'+idOfEditedUser, options);
+  requestJson(USERS_URL+'/'+id, options);
   resetForm();
   isEdited = false;
   getUsersList();  
@@ -138,16 +159,31 @@ function deleteUser(id) {
   const options = setRequestOptions('DELETE', `Content-Type: application/json`, null);
   
   requestJson(USERS_URL +'/'+id, options);
-  getUsersList();  
+  resetForm(); 
+  creationMode(); 
+  getUsersList();
+}
+
+function disableForm(elements) {
+  let length = elements.length;
+  while(length--) {
+    elements[length].disabled = true;
+  }
+}
+
+function activateForm(elements) {
+  let length = elements.length;
+  while(length--) {
+    elements[length].disabled = false;
+  }
 }
 
 function resetForm(){
-  addUserForm.reset();
+  userDataForm.reset();
 }
 
-function editForm(id) {
-  const user = getUserDetails(id);
-  user.then((res) => setFormValues(res.name, res.username, res.phone, res.email));  
+function setFocus(elem) {
+  elem.focus();
 }
 
 function getFormValues() {
@@ -164,7 +200,9 @@ function setFormValues(name, username, phone, email) {
   userNameInput.value = username;
   phoneInput.value = phone;
   emailInput.value = email;
-}
+} 
+
+
 
 
 

@@ -22,6 +22,7 @@ h2 {
 
 .user-details {
   font-weight: bold;  
+  position: relative;
   
 }
 
@@ -34,20 +35,30 @@ h2 {
 }
 
 input {
-  width: 45%;
+  width: 100%;
   margin-right: 20px;
 }
 
 .delete-btn {
-  position: absolute;
-  margin-left: 270px;
   cursor: pointer;
+  position: absolute;
+  top: 90px;
+  
 }
 
 .edit-btn {
   position: absolute;
-  margin-top: -55px;
-  margin-left: 290px;
+  top: 130px;
   cursor: pointer;
+}
+
+.form-btn {
+  padding: 0 15px;
+  margin-left: 15px;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
 }
 
