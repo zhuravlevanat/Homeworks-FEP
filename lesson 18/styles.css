@@ -12,6 +12,7 @@ h2 {
 
 .users-list-item {
   position: relative;
+  width: 80%;
   padding: 10px 10px;
   border: 1px solid #969090;
   border-radius: 5px;
@@ -39,7 +40,14 @@ input {
 
 .delete-btn {
   position: absolute;
-  margin-left: 300px;
+  margin-left: 270px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  position: absolute;
+  margin-top: -55px;
+  margin-left: 290px;
   cursor: pointer;
 }
 
