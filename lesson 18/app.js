@@ -80,6 +80,14 @@ function renderUserDeta(user) {
 }
 
 function creationMode() {
+  resetForm();
+  saveUserDetailsButton.classList.remove('hidden');
+  deleteBtn.classList.add('hidden');
+  editBtn.classList.add('hidden');
+  setFocus(fullNameInput);
+}
+
+function editingMode() {
   activateForm(inputs);
   saveUserDetailsButton.classList.remove('hidden');
   deleteBtn.classList.add('hidden');
@@ -111,7 +119,6 @@ function onUsersListClick(event) {
 }
 
 function onUserButtonClick() {
-  resetForm();
   creationMode();
 }
 
@@ -122,7 +129,7 @@ function onUserDetailsClick(event) {
     break
     case event.target.classList.contains(BTN_EDIT_USER): 
     isEdited = true;
-    creationMode(); 
+    editingMode(); 
     break
   }
 }
@@ -141,8 +148,8 @@ function addUser() {
   const user = getFormValues();
   const options = setRequestOptions('POST', `Content-Type: application/json`, user);
   requestJson(USERS_URL, options);
-  resetForm();
-  init();  
+  viewMode();
+  getUsersList();
 }
 
 function editUser(id) {
@@ -150,8 +157,8 @@ function editUser(id) {
   const options = setRequestOptions('PUT', `Content-Type: application/json`, user);
 
   requestJson(USERS_URL+'/'+id, options);
-  resetForm();
   isEdited = false;
+  viewMode();
   getUsersList();  
 }
 
@@ -159,7 +166,6 @@ function deleteUser(id) {
   const options = setRequestOptions('DELETE', `Content-Type: application/json`, null);
   
   requestJson(USERS_URL +'/'+id, options);
-  resetForm(); 
   creationMode(); 
   getUsersList();
 }
