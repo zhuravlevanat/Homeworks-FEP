@@ -5,6 +5,7 @@ const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
 const USERS_LIST_ITEM_CLASS = 'users-list-item';
 const BTN_DELETE_USER = 'delete-btn';
 const BTN_EDIT_USER = 'edit-btn';
+const REQUEST_HEADERS = `Content-Type: application/json`;
 
 const usersListContainer = document.querySelector('.users-list-container');
 const usersListItemTemplate = 
@@ -102,17 +103,6 @@ function viewMode() {
   editBtn.classList.remove('hidden');
 }
 
-usersListContainer.addEventListener('click', onUsersListClick);
-addUserButton.addEventListener('click', onUserButtonClick);
-userDetailsContainer.addEventListener('click', onUserDetailsClick)
-userDataForm.addEventListener('submit', (event) => {
-  if (!isEdited) {
-    onAddUserFormSubmit(event);
-  } else {
-    onEditUserFormSubmit(event);
-  }
-});
-
 function onUsersListClick(event) {
   if (event.target.classList.contains(USERS_LIST_ITEM_CLASS))
       getUserData(event.target.dataset.id);      
@@ -134,19 +124,17 @@ function onUserDetailsClick(event) {
   }
 }
 
-function onAddUserFormSubmit(event) {
-  event.preventDefault();
+function onAddUserFormSubmit() {
   addUser();
 }
 
-function onEditUserFormSubmit(event) {
-  event.preventDefault();
+function onEditUserFormSubmit() {
   editUser(currentId);
 }
 
 function addUser() {
   const user = getFormValues();
-  const options = setRequestOptions('POST', `Content-Type: application/json`, user);
+  const options = setRequestOptions('POST', REQUEST_HEADERS, user);
   requestJson(USERS_URL, options);
   viewMode();
   getUsersList();
@@ -154,7 +142,7 @@ function addUser() {
 
 function editUser(id) {
   const user = getFormValues();
-  const options = setRequestOptions('PUT', `Content-Type: application/json`, user);
+  const options = setRequestOptions('PUT', REQUEST_HEADERS, user);
 
   requestJson(USERS_URL+'/'+id, options);
   isEdited = false;
@@ -163,7 +151,7 @@ function editUser(id) {
 }
 
 function deleteUser(id) {
-  const options = setRequestOptions('DELETE', `Content-Type: application/json`, null);
+  const options = setRequestOptions('DELETE', REQUEST_HEADERS, null);
   
   requestJson(USERS_URL +'/'+id, options);
   creationMode(); 
@@ -207,6 +195,18 @@ function setFormValues(name, username, phone, email) {
   phoneInput.value = phone;
   emailInput.value = email;
 } 
+
+usersListContainer.addEventListener('click', onUsersListClick);
+addUserButton.addEventListener('click', onUserButtonClick);
+userDetailsContainer.addEventListener('click', onUserDetailsClick)
+userDataForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (!isEdited) {
+    onAddUserFormSubmit();
+  } else {
+    onEditUserFormSubmit();
+  }
+});
 
 
 
