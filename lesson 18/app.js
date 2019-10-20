@@ -5,7 +5,7 @@ const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
 const USERS_LIST_ITEM_CLASS = 'users-list-item';
 const BTN_DELETE_USER = 'delete-btn';
 const BTN_EDIT_USER = 'edit-btn';
-const REQUEST_HEADERS = `Content-Type: application/json`;
+const REQUEST_HEADERS = `Content-Type: application/json; charset=utf-8`;
 
 const usersListContainer = document.querySelector('.users-list-container');
 const usersListItemTemplate = 
