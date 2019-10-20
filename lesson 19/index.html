@@ -4,25 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Gallery</title>
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/skeleton.css">
   <link rel="stylesheet" href="./style.css">
   <script src="./script.js" async></script> 
  </head>
 <body>
+  <div class="container">
+    <div class="row">
   <div id="gallery" class="gallery"></div>
+  <div id ="background-layout" class ="background-layout hidden"></div>
+    <div id ="full-photo" class="full-photo"></div> 
+    </div>
+    <div class="row"> 
   <div id="pagination" class="pagination">  
       <a class="page-link prev hidden" href="#">&laquo;</a>
-      <a class="page-link first-page" href="#">1</a>
+      <a class="page-link first-page active" href="#">1</a>
       <a class="page-link" href="#">2</a>
       <a class="page-link" href="#">3</a>
       <a class="page-link" href="#">4</a>
       <a class="page-link last-page" href="#">5</a>
       <a class="page-link next" href="#">&raquo;</a>     
   </div>
+    </div>
+  </div>
   <script type="text/template" id="galleryItemTemplate">
     <p class="photo-item-wrapper">
       <img class ="photo-item" src ="{{thumbnail-url}}" data-photo-id="{{id}}" data-url="{{full-photo-url}}">
     </p>
   </script> 
+  <script type="text/template" id="fullPhotoTemplate">
+    <p class="full-photo-wrapper">
+      <img class ="full-photo-item" src ="{{url}}">
+      <span class="delete-btn cursor-pointer">✘</span>
+    </p>
+  </script>   
 </body>
 </html>
