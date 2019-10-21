@@ -128,11 +128,8 @@ function setCurrentPaginationValues(firstValue) {
 
 function getPageElement() {
   const pagItems = getPaginationItems();
-  for (let i = 1; i < pagItems.length-1; i++) {
-    if (pagItems[i].innerHTML == currentPage) {
-      return pagItems[i];
-    }         
-  }  
+  const foundElem = Array.from(pagItems).find(elem => elem.innerHTML == currentPage);
+  return foundElem;   
  }
 
 function getPaginationItems() {
@@ -149,7 +146,7 @@ function shiftPagesToLeft() {
     }    
     pagItems[i].innerHTML= (value-SHIFTED_VALUE);    
   }
-  currentPage = +pagItems[pagItems-2].innerHTML;    
+  currentPage = +pagItems[pagItems.length-2].innerHTML;    
 }
 
 function shiftPagesToRight() { 
@@ -169,7 +166,7 @@ function shiftPagesToRight() {
 }
 
 function setCurrentPageActive(pageValue) {
-  if (currentPage > 1 && currentPage < 100) {
+  if (currentPage > MIN_PAGE_NUMBER && currentPage < MAX_PAGE_NUMBER) {
     prevEl.classList.remove(HIDDEN_CLASS);
   } else {
     prevEl.classList.add(HIDDEN_CLASS);
@@ -215,8 +212,8 @@ function getItemsFromLS(name) {
 
 function photosDataForPage(page) {
   const arrayOfPhotos = JSON.parse(getItemsFromLS('photos'));
-  let photosForPage = arrayOfPhotos.filter(data => 
-    data.id>(NUMBER_OF_PHOTOS*page-NUMBER_OF_PHOTOS) && data.id<(NUMBER_OF_PHOTOS*page))
+  let photosForPage = 
+      arrayOfPhotos.slice(NUMBER_OF_PHOTOS*page-NUMBER_OF_PHOTOS, NUMBER_OF_PHOTOS*page);
   return photosForPage
 }
 
