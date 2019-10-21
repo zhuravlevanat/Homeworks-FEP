@@ -89,6 +89,7 @@ function onPaginationClick(event) {
 
     renderPhotosInGallery(currentPage);
     setItemsInLS('currentPage', currentPage);
+
   }
  }
 
@@ -117,13 +118,21 @@ function getCurrentPage(elem) {
   setCurrentPageActive(currentPage);
 }
 
+function setCurrentPaginationValues(firstValue) {
+  const pagItems = getPaginationItems();
+  for (let i = 1; i < pagItems.length-1; i++) {
+    pagItems[i].innerHTML = +firstValue + i - 1;
+  }
+}
+
+
 function getPageElement() {
   const pagItems = getPaginationItems();
   for (let i = 1; i < pagItems.length-1; i++) {
     if (pagItems[i].innerHTML == currentPage) {
       return pagItems[i];
-    }     
-  } 
+    }         
+  }  
  }
 
 function getPaginationItems() {
@@ -145,6 +154,7 @@ function shiftPagesToLeft() {
 
 function shiftPagesToRight() { 
   const pagItems = getPaginationItems();
+  let firstPagElem;
   for (let i = 1; i < pagItems.length-1; i++) {
     const value = +pagItems[i].innerHTML;
     if (value >= MAX_PAGE_NUMBER) {
@@ -153,21 +163,24 @@ function shiftPagesToRight() {
     }
     pagItems[i].innerHTML= value + SHIFTED_VALUE;      
   } 
-  currentPage = +pagItems[1].innerHTML;    
+  currentPage = +pagItems[1].innerHTML;
+  firstPagElem = +pagItems[1].innerHTML
+  setItemsInLS('first', firstPagElem);    
 }
 
 function setCurrentPageActive(pageValue) {
   if (currentPage > 1 && currentPage < 100) {
     prevEl.classList.remove(HIDDEN_CLASS);
-  }else {
+  } else {
     prevEl.classList.add(HIDDEN_CLASS);
   }
   const pagItems = getPaginationItems();
+ 
   for (let i = 1; i < pagItems.length-1; i++) {
     pagItems[i].classList.remove(ACTIVE_CLASS);
     if (pagItems[i].innerHTML == pageValue) {
       pagItems[i].classList.add(ACTIVE_CLASS);
-    }    
+    }          
   }   
 }
 
@@ -176,8 +189,10 @@ function setCurrentPageActive(pageValue) {
 function init() {
   currentPage = JSON.parse(getItemsFromLS('currentPage')) || 1;
   getPhotos();
-  renderPhotosInGallery(currentPage);
-  setCurrentPageActive(currentPage);
+  renderPhotosInGallery(currentPage);  
+  const firstPagElem = JSON.parse(getItemsFromLS('first')) || 1
+  setCurrentPaginationValues(firstPagElem);
+  setCurrentPageActive(currentPage);  
 }
 
 function requestJson(url) {
