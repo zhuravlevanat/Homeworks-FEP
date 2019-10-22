@@ -1,0 +1,72 @@
+body, html, .container, .second-row{
+  height: 100%;
+}
+h1 {
+  text-align: center; 
+  color: #163018;
+  text-shadow: 3px 3px 3px #8ac08e;
+}
+
+span {
+  font-size: 25px;
+  color: #6d6a6a;
+}
+
+.add-button {
+ margin-left: 20px;
+ color: #fffdfd;
+ background: #6d6a6a;
+ font-weight: bold;
+}
+.add-button:hover, 
+.add-button:focus {
+  color: #fffdfd;
+  background: #444644;
+}
+
+.board{
+  min-height: 100%;
+  position: relative;
+  border: 1px solid #6d6a6a;
+  box-shadow: 0 0 5px 2px;
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+.sticker-item {
+  position: relative;
+  height: fit-content;
+  display: flex;
+  width: 200px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #555;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  font-size: 20px;
+  background-color: #8ac08e;
+}
+
+.sticker-header {
+  width: 85%;
+}
+
+.sticker-body {
+  width: 100%;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  color: #163018;
+  
+}
+
