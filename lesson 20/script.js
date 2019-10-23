@@ -16,11 +16,6 @@ const stickerItem = document.querySelector('sticker-item');
 addStickerButton.addEventListener('click', onAddStickerButtonClick);
 boardElement.addEventListener('blur', onBoardElementBlur, true);
 boardElement.addEventListener('click', onBoardElementClick);
-boardElement.addEventListener('mousedown', onBoardElementMousedown);
-boardElement.addEventListener('dragstart', function() {
-  return false;
-});
-
  
 let stickerItems=[];
 
@@ -42,37 +37,6 @@ function onBoardElementClick(e) {
   if (e.target.classList.contains(DELETE_BUTTON_CLASS)) {
     deleteSticker(e.target.parentElement.dataset.stickerId);
   }
-}
-
-function onBoardElementMousedown(e) {
-  const sticker = e.target;
-  if (sticker.classList.contains(STICKER_ITEM_CLASS)) {
-    
-    let shiftX = event.clientX - sticker.getBoundingClientRect().left;
-    let shiftY = event.clientY - sticker.getBoundingClientRect().top;
-
-    sticker.style.position = 'absolute';
-    sticker.style.zIndex = 1000;
-    boardElement.append(sticker);
-  
-    moveAt(event.pageX, event.pageY);
-  
-    function moveAt(pageX, pageY) {
-      sticker.style.left = pageX - shiftX + 'px';
-      sticker.style.top = pageY - shiftY + 'px';
-    }
-
-    function onMouseMove(event) {
-      moveAt(event.pageX, event.pageY);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-
-    boardElement.onmouseup = function() {
-      document.removeEventListener('mousemove', onMouseMove);
-      boardElement.onmouseup = null;
-    };
-  };
 }
 
 function init() {
@@ -141,4 +105,3 @@ function getState() {
   const data = localStorage.getItem('board'); 
   return data ? JSON.parse(data) : [];
 }
-
