@@ -27,9 +27,9 @@ function onAddStickerButtonClick() {
 
 function onBoardElementBlur(e) {
   if (e.target.classList.contains(STICKER_HEADER_CLASS)) {
-    addStickerTitle(e.target.parentElement.dataset.stickerId, e.target.value);
+    addStickerData(e.target.parentElement.dataset.stickerId, 'title', e.target.value);
   } else if (e.target.classList.contains(STICKER_BODY_CLASS)) {
-    addStickerText(e.target.parentElement.dataset.stickerId, e.target.value);
+    addStickerData(e.target.parentElement.dataset.stickerId, 'text', e.target.value);
   }
 }
 
@@ -56,34 +56,28 @@ function addSticker() {
 
 function createSticker() {
   return {
-    title: '',
+    'title': '',
     id: Date.now(),
-    text: ''
+    'text': ''
   }
 }
 
 function addStickerOnBoard(newSticker) {
   newSticker = stickerItemTemplate.replace('{{id}}', newSticker.id)
-                                  .replace('{{title}}', newSticker.title)
-                                  .replace('{{text}}', newSticker.text);
+                                  .replace('{{title}}', newSticker['title'])
+                                  .replace('{{text}}', newSticker['text']);
   boardElement.insertAdjacentHTML('beforeend', newSticker);
-}
-
-function getSticker(id) {
-  const sticker = stickerItems.find(elem => elem.id == id);
-  return sticker
-}
-
-function addStickerTitle(id, title) {
-  const sticker = getSticker(id);
-  sticker.title = title;
   saveState();  
 }
 
-function addStickerText(id, text) {
+function getSticker(id) { 
+  return stickerItems.find(elem => elem.id == id);
+}
+
+function addStickerData(id, property, data) {
   const sticker = getSticker(id);
-  sticker.text = text;
-  saveState();
+  sticker[property] = data;
+  saveState();  
 }
 
 function deleteSticker(id) {
