@@ -1,5 +1,5 @@
 $(function(){
-  const $input = $('#tags');
+  const $input = $('#users');
   const $userTemplate = $('#userItemTemplate').html();
   const $userDataContainer = $('#user-data-container');  
 
