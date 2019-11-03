@@ -2,7 +2,7 @@ $(function() {
   const $addStickerButton = $('#addStickerButton');
   const $stickersContainer = $('#stickersContainer');
   const $stickerItemTemplate = $('#stickerItemTemplate').html();
-  const $form = $('form');
+  //const $form = $('form');
   
   const dialog = $( "#dialog-form" ).dialog({
     autoOpen: false,
@@ -61,7 +61,7 @@ $(function() {
   }
 
   function setStickerValues(sticker) {
-    $form.serializeArray().forEach(({name, value}) => sticker[name] = value);
+    form.serializeArray().forEach(({name, value}) => sticker[name] = value);
   }
 
   function addStickerOnBoard(sticker) {
@@ -106,3 +106,13 @@ $(function() {
     return data ? JSON.parse(data) : [];
   } 
 })
+
+// Инкапсуляция через замыкание
+// function CreateName() {
+//   let name
+//   this.setName = function() {
+
+//   }
+// }
+
+// const myName = new CreateName();

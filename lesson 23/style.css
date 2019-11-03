@@ -1,0 +1,23 @@
+.container {
+  padding-top: 20px;
+}
+
+.user-item { 
+  padding: 5px; 
+  border: 1px solid #8ac08e;
+  box-shadow: 3px 3px 3px #8ac08e;
+}
+
+h3 {  
+  margin-left: 30px;
+}
+
+p {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+input {
+  padding: 5px
+}
+
