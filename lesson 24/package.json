@@ -1,0 +1,12 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Calculator with 4 action: add, multiple, divide and substract 2 numbers",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "author": "Zhuravlova Natalia",
+  "license": "MIT"
+}
