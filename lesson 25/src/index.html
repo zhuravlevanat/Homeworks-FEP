@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+  <title>Movie search</title>
+  <!-- inject:css -->
+  <!-- endinject -->
+</head>
+<body>
+  <div class="container">
+    <h1>Movie finder</h1>
+    <p class="search-title">Search movie from the Movie DB</p> 
+    <select id="movie-search">
+      <option value="default">Choose some category</option>
+      <option value="NowPlaying">What movies are playing now?</option>
+      <option value="Popular">What are the most popular movies?</option>
+      <option value="TopRated">What are the highest rated movies?</option>    
+    </select>
+    <div id="output">
+    </div>
+    <ul id="pagination" class="gallery-pagination">
+
+    </ul>
+  
+  </div>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <script type="text/template" id="paginationItemTemplate">
+    <li data-page-index="{{index}}" class="pagination-item">{{title}}</li>
+  </script>
+ 
+  
+</body>
+</html>
