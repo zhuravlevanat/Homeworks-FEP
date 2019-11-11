@@ -1,4 +1,4 @@
-const { series, src, dest, watch} = require('gulp');
+const {series, src, dest, watch} = require('gulp');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass');
 const inject = require('gulp-inject');
@@ -28,10 +28,10 @@ function injectLinks() {
 }
 
 function watchFiles() {
-  return watch('./src/*.html', copy),
+  return watch('./src/*.html', series(copy, injectLinks)),
          watch('./src/**/*.scss', convertSass),
          watch('./src/*.js', concatJS);
 }
 
-module.exports.build = series(copy, concatJS, convertSass, injectLinks);
+module.exports.build = series(concatJS, convertSass, injectLinks);
 module.exports.dev = watchFiles;
