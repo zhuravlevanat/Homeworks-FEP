@@ -28,7 +28,7 @@ function injectLinks() {
 }
 
 function watchFiles() {
-  return watch('./src/*.html', series(copy, injectLinks)),
+  return watch('./src/*.html', series(injectLinks, copy)),
          watch('./src/**/*.scss', convertSass),
          watch('./src/*.js', concatJS);
 }
