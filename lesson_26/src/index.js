@@ -106,7 +106,7 @@ class TodoList {
   }
 
   saveState() {
-    this.storage = new LocalStorage(todoItems);
+    this.storage = new LocalStorage(this.todoItems);
     this.storage.setDataInLs();
   }
 
