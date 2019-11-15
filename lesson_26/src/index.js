@@ -1,12 +1,13 @@
 import $ from 'jquery';
-//import  './css/normalize.css';
-//import  './css/skeleton.css';
+import  './css/normalize.css';
+import  './css/skeleton.css';
 import './style.css';
 import {LocalStorage} from './localStorage';
 
-class TodoList {  
-  
+class TodoList {   
   constructor() {    
+    this.form = document.getElementById('addTodoForm'); 
+    this.list = document.querySelector('#todoList');
     this.$addTodoForm = $('#addTodoForm');
     this.$todoNameInput = $('#todoNameInput');
     this.$todoList = $('#todoList');
@@ -24,13 +25,12 @@ class TodoList {
   }
 
   bindEventListeners() {
-    this.$addTodoForm$addTodoForm.on('submit', this.onAddTodoFormSubmit.bind(this));
+    this.$addTodoForm.on('submit', this.onAddTodoFormSubmit.bind(this));
     this.$todoList.on('click', this.onTodoListClick.bind(this));
  }
 
   onAddTodoFormSubmit(ev) {
     ev.preventDefault();
-
     this.addTodo();
   }
 
@@ -73,8 +73,8 @@ class TodoList {
 
   getTodoItemHtml(todo) {
     return this.$todoItemTemplate.replace('{{title}}', todo.title)
-                            .replace('{{id}}', todo.id)
-                            .replace('{{doneClass}}', todo.isDone ? 'done' : '');
+                                  .replace('{{id}}', todo.id)
+                                  .replace('{{doneClass}}', todo.isDone ? 'done' : '');
   }
 
   renderTodosInList(todos) { 
