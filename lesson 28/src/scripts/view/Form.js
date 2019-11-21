@@ -53,6 +53,7 @@ export default class Form {
   }
 
   showData(data) {
+    $('#deleteUserBtn').removeClass('hidden');
     this.$el[0][0].value = data.name;
     this.$el[0][1].value = data.surname;
     this.$el[0][2].value = data.email;

@@ -7,16 +7,18 @@ export default class List {
     this.$addBtn = this.createAddBtn();
     this.$el.on('click', '.user-item', this.onListItemClick.bind(this))
     this.$addBtn.on('click', this.onAddUserBtnClick.bind(this));
+    
   }
 
+  
+
   onListItemClick(e) {
-    $('#deleteUserBtn').removeClass('hidden');
     const id = $(e.target).data('id');
     this.config.onItemClick(id);
   }
 
   onAddUserBtnClick() {
-    this.config.onBtnClick();
+    this.config.onAddBtnClick();
   }
 
   createAddBtn() {
@@ -28,6 +30,7 @@ export default class List {
   }
 
   renderList(data) {
+    this.$el.after(this.$addBtn);
     this.$el.empty();
     data.forEach(item => this.renderListItem(item))
   }

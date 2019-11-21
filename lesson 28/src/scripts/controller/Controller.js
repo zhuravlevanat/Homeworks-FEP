@@ -11,7 +11,7 @@ export default class Controller {
     this.collection = new Collection;
     this.listView = new listView({
       onItemClick: this.onListItemClick.bind(this),
-      onBtnClick: this.onAddBtnClick.bind(this)
+      onAddBtnClick: this.onAddUserBtnClick.bind(this)
     });
 
     this.formView = new Form({
@@ -20,7 +20,6 @@ export default class Controller {
     });
         
     container.append(this.listView.$el);
-    this.listView.$el.after(this.listView.$addBtn);
     container.append(this.formView.$el);
 
     this.renderData = this.renderData.bind(this);
@@ -43,7 +42,7 @@ export default class Controller {
     this.formView.showData(model);   
   }
 
-  onAddBtnClick() {
+  onAddUserBtnClick() {
     this.formView.openNewUserForm()
   }
 
