@@ -10,48 +10,56 @@ export default class Controller {
     const container = $('#container');
     this.collection = new Collection;
     this.listView = new listView({
-      onItemClick: this.onListItemClick.bind(this)
+      onItemClick: this.onListItemClick.bind(this),
+      onBtnClick: this.onAddBtnClick.bind(this)
     });
+
     this.formView = new Form({
       onSubmit: this.onFormSubmit.bind(this),
+      onDelete: this.onDeleteBtn.bind(this),
     });
         
     container.append(this.listView.$el);
     this.listView.$el.after(this.listView.$addBtn);
     container.append(this.formView.$el);
+
+    this.renderData = this.renderData.bind(this);
     
+    this.refreshData();
+  }
 
-    this.collection.fetchServerData()
-      .then(() => this.listView.renderList(this.collection.list))
+  refreshData() {
+    this.collection
+      .fetchServerData()
+      .then(this.renderData)
+  }
 
+  renderData() {
+    this.listView.renderList(this.collection.list);
+  }
+
+  onListItemClick(id) {
+    const model = this.collection.get(id);
+    this.formView.showData(model);   
+  }
+
+  onAddBtnClick() {
+    this.formView.openNewUserForm()
   }
 
   onFormSubmit(data) {
     if (data.id){
       this.collection.updateUser(data)
-        .then(() => this.listView.renderList(this.collection.list))
-  } else {
-    console.log('adding')
-      this.collection.createUser(data)
-        .then(() => this.listView.renderList(this.collection.list))
+                        .then(this.renderData)
+    } else {
+    this.collection.createUser(data)
+                      .then(this.renderData)
+    }    
   }
-    //this.collection.add(data)
-      
- 
+
+  onDeleteBtn(id) {
+    this.collection.deleteUser(id)
+                      .then(this.renderData)
+  }
     
-  }
-
-  onListItemClick(id) {
-    const model = this.collection.list.find(item => item.id == id);
-    this.formView.showData(model);
-      
-
-  //   console.log('clicked', id);
-  //   const model = this.collection.list.find(item => item.id == id);
-
-  //   model.showData(id)
-  //     .then(() => this.listView.renderList(this.collection.list))
-  //     console.log('model', model);  
-  }
-  
 }

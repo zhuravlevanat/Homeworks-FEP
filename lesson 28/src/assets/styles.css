@@ -1,3 +1,18 @@
 .container {
   display: flex;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.users-list {
+  padding: 5px 10px;
+  margin-right: 20px;
+  border: 1px solid #cecaca;
+}
+
+#addNewUserBtn {
+  position: absolute;
+  bottom: -50px;
+}

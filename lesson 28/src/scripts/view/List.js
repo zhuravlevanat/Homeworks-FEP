@@ -10,12 +10,13 @@ export default class List {
   }
 
   onListItemClick(e) {
+    $('#deleteUserBtn').removeClass('hidden');
     const id = $(e.target).data('id');
     this.config.onItemClick(id);
   }
 
   onAddUserBtnClick() {
-    
+    this.config.onBtnClick();
   }
 
   createAddBtn() {

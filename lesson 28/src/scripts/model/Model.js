@@ -1,23 +1,27 @@
 import config from '../../config';
 
 export default class Model {
+
+  get url () {
+    return `${config.contactsUrl}/${this.id}`
+  }
   constructor(data) {
-    Object.assign(this, data);
+    this.setData(data);
   }
 
-  update(data) {
-    Object.assign(this, data);
-    return this.save();
+  setData(data) {
+    Object.assign(this, data);    
   }
 
-  save() {
+  save() {    
     return this.id ? this.saveUpdate() : this.saveCreate()
   }
-
+  
   saveUpdate() {
-    return fetch(config.contactsUrl+`/${this.id}`, {
+    return fetch(`${this.url}`, {
       method: 'PUT',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       data: JSON.stringify(this)
@@ -25,14 +29,25 @@ export default class Model {
   }
 
   saveCreate() {
-    console.log(this);
-    return fetch(config.contactsUrl, {
+    return fetch(`${this.url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       data: JSON.stringify(this)})
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then((data) => {
+        this.id = data.id;
+        this.setData(this)
+    })
+  }
+
+  delete() {
+    return fetch(`${this.url}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      }        
+  });
   }
 }

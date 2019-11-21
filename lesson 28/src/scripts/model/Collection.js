@@ -3,7 +3,6 @@ import Model from './Model';
 
 export default class Collection {
   constructor() {
-    console.log('coll start');
     this.list = [];
     this.setData = this.setData.bind(this);
   }
@@ -18,6 +17,10 @@ export default class Collection {
     this.list = data.map((item) => new Model(item));
   }
 
+  get(id) {
+    return this.list.find(el => el.id == id);
+  }
+
   updateUser(data) {
     this.list.forEach(item => {
       if (item.id == data.id) {
@@ -27,17 +30,21 @@ export default class Collection {
       }
     });
 
-    const model = this.list.find(elem => elem.id == data.id);
-    
+    const model = this.get(data.id);
+        
     return model.save();
   }
 
   createUser(data) {
-    const model = new Model(data);
-    
+    const model = new Model(data);    
     this.list.push(model);
-    console.log(this.list);
+
     return model.save();
   }
 
+  deleteUser(id) {
+    const model = this.get(id);
+    this.list = this.list.filter(item => item.id != id)
+    return model.delete();
+  }
 }
