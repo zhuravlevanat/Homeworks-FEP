@@ -22,6 +22,7 @@ export default class Form {
 
   onFormSubmit() {
     const formData = this.getFormData();
+    console.log(formData);
     this.config.onSubmit(formData);
     this.openNewUserForm();   
   }

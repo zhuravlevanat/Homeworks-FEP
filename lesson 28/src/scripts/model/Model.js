@@ -29,7 +29,7 @@ export default class Model {
   }
 
   saveCreate() {
-    return fetch(`${this.url}`, {
+    return fetch(`${config.contactsUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
