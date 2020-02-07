@@ -1,0 +1,42 @@
+<html>
+  <body>
+    <p>
+      <button>Декодировать</button>
+    </p>
+    <canvas id="source" width="600" height="400"></canvas>
+    <canvas id="message" width="600" height="400"></canvas>
+    <canvas id="solver" width="600" height="400"></canvas>
+
+    <script src="./data.js"></script>
+    <script src="./functions.js"></script>
+    <script>
+      const width = 600;
+      const height = 400;
+      const key = getEncryptionKey();
+      console.log("Ключ шифрования", key);
+      const arr = [];
+
+      document.querySelector("button").addEventListener("click", () => {
+        for (let x = 0; x < width; x++) {
+          for (let y = 0; y < height; y++) {
+            // Получение пикселя оригинального сообщения
+            const originalPixel = getOriginalPixelColor(x, y);
+            // Получение пикселя зашифрованного сообщения
+            const secretPixel = getMessagePixelColor(x, y);
+            let data = parseInt(key.charCodeAt(y)).toString(2);
+            if (data.length < 8) {
+              data = data.padStart(8, "0");
+            }
+            const firstNum = parseInt( data.substring(0, 2), 2 )+originalPixel.r;
+            const secondNum = parseInt( data.substring(2, 5), 2)+originalPixel.g;
+            const thirdNum = parseInt( data.substring(5, 8), 2)+originalPixel.b; 
+            console.log({firstNum, secondNum, thirdNum});
+                        //console.log(originalPixel, secretPixel, key.charCodeAt(y));
+            putPixelToSolution({firstNum, secondNum, thirdNum}, x, y);
+          }
+        }
+      });
+      
+    </script>
+  </body>
+</html>
